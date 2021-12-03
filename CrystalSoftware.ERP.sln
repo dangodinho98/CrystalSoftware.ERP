@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.UseCase
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.Repositories", "CrystalSoftware.ERP.Repositories\CrystalSoftware.ERP.Repositories.csproj", "{4C89EE8C-00BB-431C-A905-D98B842EE79D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.Tests", "CrystalSoftware.ERP.Tests\CrystalSoftware.ERP.Tests.csproj", "{11E041B6-3360-4FD3-BED9-8A78112562DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4C89EE8C-00BB-431C-A905-D98B842EE79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C89EE8C-00BB-431C-A905-D98B842EE79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C89EE8C-00BB-431C-A905-D98B842EE79D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

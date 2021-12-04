@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CrystalSoftware.ERP.Border.Dto
+namespace CrystalSoftware.ERP.Border.Models
 {
-    public class Person
+    public class People
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

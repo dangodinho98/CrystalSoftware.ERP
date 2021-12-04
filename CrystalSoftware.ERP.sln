@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrystalSoftware.ERP.Border"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrystalSoftware.ERP.Api", "CrystalSoftware.ERP.Api\CrystalSoftware.ERP.Api.csproj", "{CD0CDFFE-1608-444B-B672-53A0BB932B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.UseCases", "CrystalSoftware.ERP.UseCases\CrystalSoftware.ERP.UseCases.csproj", "{1FD327B5-35DA-4C60-9392-70BDA3517386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrystalSoftware.ERP.UseCases", "CrystalSoftware.ERP.UseCases\CrystalSoftware.ERP.UseCases.csproj", "{1FD327B5-35DA-4C60-9392-70BDA3517386}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.Repositories", "CrystalSoftware.ERP.Repositories\CrystalSoftware.ERP.Repositories.csproj", "{4C89EE8C-00BB-431C-A905-D98B842EE79D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrystalSoftware.ERP.Repositories", "CrystalSoftware.ERP.Repositories\CrystalSoftware.ERP.Repositories.csproj", "{4C89EE8C-00BB-431C-A905-D98B842EE79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.Tests", "CrystalSoftware.ERP.Tests\CrystalSoftware.ERP.Tests.csproj", "{11E041B6-3360-4FD3-BED9-8A78112562DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrystalSoftware.ERP.Tests", "CrystalSoftware.ERP.Tests\CrystalSoftware.ERP.Tests.csproj", "{11E041B6-3360-4FD3-BED9-8A78112562DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalSoftware.ERP.Shared", "CrystalSoftware.ERP.Shared\CrystalSoftware.ERP.Shared.csproj", "{990E421C-7E54-49FD-9D25-DB52BDF0BFDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11E041B6-3360-4FD3-BED9-8A78112562DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990E421C-7E54-49FD-9D25-DB52BDF0BFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990E421C-7E54-49FD-9D25-DB52BDF0BFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990E421C-7E54-49FD-9D25-DB52BDF0BFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990E421C-7E54-49FD-9D25-DB52BDF0BFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

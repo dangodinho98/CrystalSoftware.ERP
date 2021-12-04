@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrystalSoftware.ERP.Border\CrystalSoftware.ERP.Border.csproj" />
+    <ProjectReference Include="..\CrystalSoftware.ERP.Shared\CrystalSoftware.ERP.Shared.csproj" />
   </ItemGroup>
 
 </Project>

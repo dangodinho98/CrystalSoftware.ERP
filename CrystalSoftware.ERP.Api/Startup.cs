@@ -1,11 +1,11 @@
 using CrystalSoftware.ERP.Api.Configuration;
+using CrystalSoftware.ERP.Api.Extensions;
+using CrystalSoftware.ERP.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Net.Http;
 
 namespace CrystalSoftware.ERP.Api
 {
@@ -21,11 +21,14 @@ namespace CrystalSoftware.ERP.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationConfig = Configuration.LoadConfiguration();
             services.AddControllersWithViews();
+            
+            services.AddScoped(provider => new ApplicationDbContext(applicationConfig));
 
-            RepositoryConfig.ConfigureServices(services);
-            UseCaseConfig.ConfigureServices(services);
-            ValidatorConfig.ConfigureServices(services);
+            services.AddRepositories(applicationConfig);
+            services.AddUseCases();
+            services.AddValidators();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

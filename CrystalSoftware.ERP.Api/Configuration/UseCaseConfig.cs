@@ -6,7 +6,7 @@ namespace CrystalSoftware.ERP.Api.Configuration
 {
     public static class UseCaseConfig
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void AddUseCases(this IServiceCollection services)
         {
             services.AddSingleton<ICreatePersonUseCase, CreatePersonUseCase>();
         }

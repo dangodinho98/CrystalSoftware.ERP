@@ -1,4 +1,5 @@
-﻿using CrystalSoftware.ERP.Border.Repositories;
+﻿using CrystalSoftware.ERP.Border.Models;
+using CrystalSoftware.ERP.Border.Repositories;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -15,7 +16,7 @@ namespace CrystalSoftware.ERP.Repositories.Person
             _httpClient = httpClient;
         }
 
-        public async Task<Border.Dto.Person> GetById(Guid id)
+        public async Task<People> GetById(Guid id)
         {
             var response = await _httpClient.GetAsync($"/api/persons/{id}");
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -26,7 +27,7 @@ namespace CrystalSoftware.ERP.Repositories.Person
                 throw new HttpRequestException(context);
             }
 
-            return JsonConvert.DeserializeObject<Border.Dto.Person>(responseBody);
+            return JsonConvert.DeserializeObject<People>(responseBody);
         }
     }
 }

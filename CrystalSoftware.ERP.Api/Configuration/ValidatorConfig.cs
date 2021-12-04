@@ -5,7 +5,7 @@ namespace CrystalSoftware.ERP.Api.Configuration
 {
     public static class ValidatorConfig
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void AddValidators(this IServiceCollection services)
         {
             services.AddSingleton<StringValidator>();
             services.AddSingleton<GuidValidator>();

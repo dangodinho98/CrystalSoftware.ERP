@@ -1,11 +1,14 @@
 using CrystalSoftware.ERP.Api.Configuration;
 using CrystalSoftware.ERP.Api.Extensions;
-using CrystalSoftware.ERP.Repositories;
+using CrystalSoftware.ERP.Border;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace CrystalSoftware.ERP.Api
 {
@@ -21,10 +24,42 @@ namespace CrystalSoftware.ERP.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
             var applicationConfig = Configuration.LoadConfiguration();
             services.AddControllersWithViews();
-            
-            services.AddScoped(provider => new ApplicationDbContext(applicationConfig));
+
+            //services.AddEntityFrameworkSqlServer()
+            //    .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
+
+            services
+                .AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+
+                    options.Lockout.AllowedForNewUsers = false;
+
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.SignIn.RequireConfirmedPhoneNumber = false;
+                })
+                //.AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<IUserStore<ApplicationUser>>()
+                .AddUserManager<UserManager<ApplicationUser>>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             services.AddRepositories(applicationConfig);
             services.AddUseCases();
@@ -44,6 +79,7 @@ namespace CrystalSoftware.ERP.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

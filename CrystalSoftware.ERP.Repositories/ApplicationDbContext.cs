@@ -1,13 +1,11 @@
-﻿using System.Data.Entity;
-using CrystalSoftware.ERP.Border.Models;
-using CrystalSoftware.ERP.Shared.Configuration;
+﻿using CrystalSoftware.ERP.Border.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrystalSoftware.ERP.Repositories
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(ApplicationConfig application)
-            : base(application.Database.ConnectionString)
+        public ApplicationDbContext()
         {
         }
 

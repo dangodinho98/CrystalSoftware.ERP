@@ -40,6 +40,7 @@ namespace CrystalSoftware.ERP.Shared.Configuration
             RuleFor(config => config.Database).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
             RuleFor(config => config.Database.ConnectionString).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
             RuleFor(config => config.Database.DatabaseName).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
+
             RuleFor(config => config.PersonApi).NotEmpty().WithMessage("Person api was not found");
             RuleFor(config => config.PersonApi.Url).NotEmpty().WithMessage("Person api was not found");
         }

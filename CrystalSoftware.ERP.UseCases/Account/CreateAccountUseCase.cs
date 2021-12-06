@@ -17,20 +17,14 @@ namespace CrystalSoftware.ERP.UseCases.Account
     public class CreateAccountUseCase : ICreateAccountUseCase
     {
         private readonly IIdentityRepository _identityRepository;
-        private readonly IAccountRepository _accountRepository;
         private readonly CreateAccountValidator _validator;
         private const string DefaultErrorMessage = "An error has occured when trying to create user account.";
-        private readonly MailService _mailService;
 
         public CreateAccountUseCase(IIdentityRepository _identityRepository, 
-            IAccountRepository accountRepository,
-            CreateAccountValidator validator,
-            MailService mailService)
+            CreateAccountValidator validator)
         {
             this._identityRepository = _identityRepository;
-            _accountRepository = accountRepository;
             _validator = validator;
-            _mailService = mailService;
         }
 
         public async Task<UseCaseResponse<ApplicationUser>> Execute(CreateAccountRequest request)

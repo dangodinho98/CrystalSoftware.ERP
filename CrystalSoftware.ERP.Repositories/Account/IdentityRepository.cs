@@ -18,6 +18,7 @@ namespace CrystalSoftware.ERP.Repositories.Account
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
+
             return await userManager.CreateAsync(applicationUser, password);
         }
 
@@ -25,7 +26,9 @@ namespace CrystalSoftware.ERP.Repositories.Account
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
-            return await userManager.FindByEmailAsync(email);
+
+            var applicationUser = await userManager.FindByEmailAsync(email);
+            return applicationUser;
         }
 
         public async Task<string> GenerateEmailConfirmationToken(ApplicationUser applicationUser)
@@ -37,7 +40,7 @@ namespace CrystalSoftware.ERP.Repositories.Account
             return token;
         }
 
-        public async Task<SignInResult> GenerateEmailConfirmationToken(ApplicationUser applicationUser, string password)
+        public async Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, string password)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var signInManager = (SignInManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(SignInManager<ApplicationUser>));

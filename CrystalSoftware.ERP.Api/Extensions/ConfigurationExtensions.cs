@@ -11,6 +11,7 @@ namespace CrystalSoftware.ERP.Api.Extensions
 
             applicationConfig.Database.ConnectionString = source.GetConnectionString("SqlServer");
             applicationConfig.Database.DatabaseName = source.GetConnectionString("DatabaseName");
+
             applicationConfig.PersonApi.Url = source.GetSection("Person").GetValue<string>("baseUrl");
 
             applicationConfig.EmailSettings.EmailFrom = source.GetSection("MailSettings").GetValue<string>("MailFrom");
@@ -18,8 +19,8 @@ namespace CrystalSoftware.ERP.Api.Extensions
             applicationConfig.EmailSettings.Host = source.GetSection("MailSettings").GetValue<string>("Host");
             applicationConfig.EmailSettings.Port = source.GetSection("MailSettings").GetValue<int>("Port");
             applicationConfig.EmailSettings.EnableSsl = source.GetSection("MailSettings").GetValue<bool>("EnableSsl");
-            applicationConfig.Validate();
 
+            applicationConfig.Validate();
             return applicationConfig;
         }
     }

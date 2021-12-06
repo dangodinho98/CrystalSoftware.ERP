@@ -6,6 +6,6 @@ namespace CrystalSoftware.ERP.Border.Repositories
 {
     public interface IPersonRepository
 	{
-		Task<People> GetById(Guid id);
+		Task<Person> GetById(Guid id);
 	}
 }

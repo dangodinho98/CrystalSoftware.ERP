@@ -26,11 +26,16 @@ namespace CrystalSoftware.ERP.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-
             var applicationConfig = Configuration.LoadConfiguration();
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
+            services.AddDbContext<CustomDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(applicationConfig.Database.ConnectionString, builder =>
+                {
+                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                });
+            });
 
             services
                 .AddIdentityCore<ApplicationUser>(options =>
@@ -49,14 +54,17 @@ namespace CrystalSoftware.ERP.Api
                     options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
                 .AddDefaultUI();
 
-            services.ConfigureApplicationCookie(options =>
+            services.AddAuthentication(options =>
             {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-            });
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            }).AddIdentityCookies();
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
             services.AddControllersWithViews();
             services.AddRepositories(applicationConfig);
@@ -65,8 +73,10 @@ namespace CrystalSoftware.ERP.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            serviceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

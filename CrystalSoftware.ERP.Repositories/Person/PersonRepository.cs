@@ -16,7 +16,7 @@ namespace CrystalSoftware.ERP.Repositories.Person
             _httpClient = httpClient;
         }
 
-        public async Task<People> GetById(Guid id)
+        public async Task<Border.Models.Person> GetById(Guid id)
         {
             var response = await _httpClient.GetAsync($"/api/persons/{id}");
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -27,7 +27,7 @@ namespace CrystalSoftware.ERP.Repositories.Person
                 throw new HttpRequestException(context);
             }
 
-            return JsonConvert.DeserializeObject<People>(responseBody);
+            return JsonConvert.DeserializeObject<Border.Models.Person>(responseBody);
         }
     }
 }

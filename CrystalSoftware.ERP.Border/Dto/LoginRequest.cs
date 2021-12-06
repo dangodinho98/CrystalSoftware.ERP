@@ -1,7 +1,17 @@
-﻿namespace CrystalSoftware.ERP.Border.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CrystalSoftware.ERP.Border.Dto
 {
     public class LoginRequest
     {
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool KeepLogged { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace CrystalSoftware.ERP.Api.Configuration
         {
             services.AddSingleton<ICreatePersonUseCase, CreatePersonUseCase>();
             services.AddSingleton<ICreateAccountUseCase, CreateAccountUseCase>();
+            services.AddSingleton<ILoginUseCase, LoginUseCase>();
         }
     }
 }

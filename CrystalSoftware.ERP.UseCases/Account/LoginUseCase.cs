@@ -1,5 +1,4 @@
-﻿using CrystalSoftware.ERP.Border;
-using CrystalSoftware.ERP.Border.Dto;
+﻿using CrystalSoftware.ERP.Border.Dto;
 using CrystalSoftware.ERP.Border.Interfaces.UseCase;
 using CrystalSoftware.ERP.Border.Repositories;
 using CrystalSoftware.ERP.Border.Shared;
@@ -17,6 +16,7 @@ namespace CrystalSoftware.ERP.UseCases.Account
         private readonly IIdentityRepository _identityRepository;
         private readonly CreateAccountValidator _validator;
         private const string DefaultErrorMessage = "An error has occured when trying to do user login.";
+        private const string InvalidUserOrPassword = "Usuário ou senha inválidos.";
 
         public LoginUseCase(IIdentityRepository _identityRepository, CreateAccountValidator validator)
         {
@@ -32,10 +32,12 @@ namespace CrystalSoftware.ERP.UseCases.Account
                 //_validator.ValidateAndThrow(request);
 
                 var applicationUser = await _identityRepository.FindApplicationUserByEmail(request.Email);
-                if (applicationUser != null)
-                {
+                if (applicationUser == null)
+                    return useCaseResponse.SetNotFound(InvalidUserOrPassword);
 
-                }
+                var signInResult = await _identityRepository.PasswordSignIn(applicationUser, request.Password);
+                if (!signInResult.Succeeded)
+                    return useCaseResponse.SetNotFound(InvalidUserOrPassword);
 
                 return useCaseResponse.SetSuccess();
             }

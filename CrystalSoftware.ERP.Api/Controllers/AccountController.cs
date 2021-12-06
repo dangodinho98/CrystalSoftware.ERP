@@ -62,11 +62,9 @@ namespace CrystalSoftware.ERP.Api.Controllers
             }
 
             var result = await _loginUseCase.Execute(request);
-            if (result.Status == UseCaseResponseKind.BadRequest)
+            if (result.Status == UseCaseResponseKind.NotFound)
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError("", error.Message);
-
+                ModelState.AddModelError("", result.ErrorMessage);
                 return View(request);
             }
 

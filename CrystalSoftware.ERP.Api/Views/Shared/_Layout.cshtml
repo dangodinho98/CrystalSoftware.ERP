@@ -149,14 +149,14 @@
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="@Url.Action("SignIn", "Account")" role="button" title="Login">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="@Url.Action("SignOut", "Account")" role="button" title="Logout">
+                @*<li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("SignOut", "Account")" role="button" title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>*@
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login", "Account")" role="button" title="Login">
+                        <i class="fas fa-sign-in-alt"></i>
                     </a>
                 </li>
                 <li class="nav-item">

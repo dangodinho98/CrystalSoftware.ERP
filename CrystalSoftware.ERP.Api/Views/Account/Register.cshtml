@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Registration Page (v2)</title>
+    <title>CrystalSoftware.ERP | Registre-se</title>
 
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="~/lib/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -26,14 +26,14 @@
                 <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">Preencha seus dados</p>
 
                 @using (Html.BeginForm())
                 {
                     Html.ValidationSummary("", new { @class = "text-danger" });
 
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.UserName, new { @class = "form-control" })
+                        @Html.EditorFor(x => x.UserName, new { @placeholder = "Usuário", @class = "form-control" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Name, new { @class = "form-control" })
+                        @Html.EditorFor(x => x.Name, new { @class = "form-control", @placeholder = "Nome" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Email, new { @class = "form-control" })
+                        @Html.EditorFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Password, new { @class = "form-control" })
+                        @Html.EditorFor(x => x.Password, new { @class = "form-control", @placeholder = "Senha" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Password, new { @class = "form-control" })
+                        @Html.EditorFor(x => x.RetypePassword, new { @class = "form-control", @placeholder = "Digite novamente sua senha" })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -77,13 +77,13 @@
                             <div class="icheck-primary">
                                 @Html.EditorFor(x => x.AgreeTerms, new { @class = "form-control", @name = "terms", @value = "agree" })
                                 <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
+                                    Concordo com os <a href="#">termos</a>
                                 </label>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -99,7 +99,7 @@
                     </a>
                 </div>
 
-                <a href="login.html" class="text-center">I already have a membership</a>
+                <a href="login.html" class="text-center">Já tenho cadastro</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

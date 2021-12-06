@@ -1,10 +1,12 @@
 using CrystalSoftware.ERP.Api.Configuration;
 using CrystalSoftware.ERP.Api.Extensions;
 using CrystalSoftware.ERP.Border;
+using CrystalSoftware.ERP.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,13 +29,11 @@ namespace CrystalSoftware.ERP.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             var applicationConfig = Configuration.LoadConfiguration();
-            services.AddControllersWithViews();
 
-            //services.AddEntityFrameworkSqlServer()
-            //    .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
 
             services
-                .AddIdentity<ApplicationUser, IdentityRole>(options =>
+                .AddIdentityCore<ApplicationUser>(options =>
                 {
                     options.Password.RequiredLength = 6;
                     options.Password.RequireDigit = false;
@@ -45,22 +45,20 @@ namespace CrystalSoftware.ERP.Api
 
                     options.SignIn.RequireConfirmedEmail = false;
                     options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                    options.User.RequireUniqueEmail = true;
                 })
-                //.AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserStore<IUserStore<ApplicationUser>>()
-                .AddUserManager<UserManager<ApplicationUser>>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
 
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                options.SlidingExpiration = true;
             });
 
+            services.AddControllersWithViews();
             services.AddRepositories(applicationConfig);
             services.AddUseCases();
             services.AddValidators();

@@ -1,9 +1,9 @@
-﻿using CrystalSoftware.ERP.Border;
-using CrystalSoftware.ERP.Border.Interfaces;
-using CrystalSoftware.ERP.Border.Repositories;
+﻿using CrystalSoftware.ERP.Border.Repositories;
 using CrystalSoftware.ERP.Repositories.Account;
 using CrystalSoftware.ERP.Repositories.Person;
+using CrystalSoftware.ERP.Repositories.Services;
 using CrystalSoftware.ERP.Shared.Configuration;
+using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -20,7 +20,9 @@ namespace CrystalSoftware.ERP.Api.Configuration
             });
 
             services.AddSingleton<IAccountRepository, AccountRepository>();
-            //services.AddSingleton<IAccountRepository>(sp => new AccountRepository(sp.GetService<UserManager<ApplicationUser>>()));
+            services.AddSingleton<IIdentityRepository, IdentityRepository>();
+
+            services.AddSingleton<IIdentityMessageService>(new MailService(applicationConfig.EmailSettings));
         }
     }
 }

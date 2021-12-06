@@ -5,9 +5,8 @@ namespace CrystalSoftware.ERP.Repositories
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { }
 
         public DbSet<People> People { get; set; }
     }

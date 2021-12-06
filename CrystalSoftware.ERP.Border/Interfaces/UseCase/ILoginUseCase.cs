@@ -3,7 +3,7 @@ using CrystalSoftware.ERP.Border.Shared;
 
 namespace CrystalSoftware.ERP.Border.Interfaces.UseCase
 {
-    public interface ICreateAccountUseCase : IUseCase<CreateAccountRequest, UseCaseResponse<ApplicationUser>>
+    public interface ILoginUseCase : IUseCase<LoginRequest, UseCaseResponse>
     {
     }
 }

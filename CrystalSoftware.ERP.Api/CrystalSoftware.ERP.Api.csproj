@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CrystalSoftware.ERP.UseCases\CrystalSoftware.ERP.UseCases.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>

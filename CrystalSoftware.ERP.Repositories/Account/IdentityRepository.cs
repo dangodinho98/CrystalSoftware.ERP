@@ -1,4 +1,5 @@
 ﻿using CrystalSoftware.ERP.Border;
+using CrystalSoftware.ERP.Border.Dto;
 using CrystalSoftware.ERP.Border.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,12 +41,16 @@ namespace CrystalSoftware.ERP.Repositories.Account
             return token;
         }
 
-        public async Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, string password)
+        public async Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, LoginRequest request)
         {
             using var scope = _serviceScopeFactory.CreateScope();
             var signInManager = (SignInManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(SignInManager<ApplicationUser>));
 
-            var result = await signInManager.PasswordSignInAsync(applicationUser.UserName, password, false, false);
+            var result = await signInManager.PasswordSignInAsync(applicationUser.UserName, request.Password, request.KeepLogged, false);
+
+            if (result.Succeeded)
+                 await signInManager.SignInAsync(applicationUser, request.KeepLogged);
+            
             return result;
         }
     }

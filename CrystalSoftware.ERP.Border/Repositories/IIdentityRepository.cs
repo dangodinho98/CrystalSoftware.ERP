@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CrystalSoftware.ERP.Border.Dto;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace CrystalSoftware.ERP.Border.Repositories
@@ -8,6 +9,6 @@ namespace CrystalSoftware.ERP.Border.Repositories
         Task<IdentityResult> AddApplicationUser(ApplicationUser appUser, string password);
         Task<ApplicationUser> FindApplicationUserByEmail(string email);
         Task<string> GenerateEmailConfirmationToken(ApplicationUser appUser);
-        Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, string password);
+        Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, LoginRequest request);
     }
 }

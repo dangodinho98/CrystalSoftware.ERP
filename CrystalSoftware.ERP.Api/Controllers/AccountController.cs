@@ -67,7 +67,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
                 ModelState.AddModelError("", result.ErrorMessage);
                 return View(request);
             }
-
+            
             return RedirectToAction("Index", "Home");
         }
     }

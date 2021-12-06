@@ -5,6 +5,7 @@ using CrystalSoftware.ERP.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -53,6 +54,7 @@ namespace CrystalSoftware.ERP.Api
 
                     options.User.RequireUniqueEmail = true;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
@@ -64,8 +66,6 @@ namespace CrystalSoftware.ERP.Api
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             }).AddIdentityCookies();
 
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
-
             services.AddControllersWithViews();
             services.AddRepositories(applicationConfig);
             services.AddUseCases();
@@ -76,7 +76,7 @@ namespace CrystalSoftware.ERP.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             serviceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -93,6 +93,7 @@ namespace CrystalSoftware.ERP.Api
 
             app.UseRouting();
 
+            app.UseAuthentication(); 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

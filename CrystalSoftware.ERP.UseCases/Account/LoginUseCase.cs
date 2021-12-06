@@ -35,7 +35,7 @@ namespace CrystalSoftware.ERP.UseCases.Account
                 if (applicationUser == null)
                     return useCaseResponse.SetNotFound(InvalidUserOrPassword);
 
-                var signInResult = await _identityRepository.PasswordSignIn(applicationUser, request.Password);
+                var signInResult = await _identityRepository.PasswordSignIn(applicationUser, request);
                 if (!signInResult.Succeeded)
                     return useCaseResponse.SetNotFound(InvalidUserOrPassword);
 

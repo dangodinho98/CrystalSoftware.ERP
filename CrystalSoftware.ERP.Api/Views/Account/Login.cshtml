@@ -9,15 +9,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CrystalSoftware.ERP | Registre-se</title>
+    <title>CrystalSoftware.ERP | Login</title>
 
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/lib/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="~/lib/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -34,7 +35,7 @@
                     Html.ValidationSummary("", new { @class = "text-danger" });
 
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Email, new { @placeholder = "Email", @class = "form-control" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @placeholder = "Email", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Password, new { @placeholder = "Password", @class = "form-control" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @placeholder = "Password", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -88,8 +89,8 @@
         <!-- /.card -->
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="~/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dist/js/adminlte.min.js"></script>
 </body>
 </html>

@@ -12,18 +12,18 @@
     <title>CrystalSoftware.ERP | Registre-se</title>
 
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="~/lib/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="~/lib/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
 </head>
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a href="" class="h1"><b>Crystal</b>Software</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Preencha seus dados</p>
@@ -33,7 +33,7 @@
                     Html.ValidationSummary("", new { @class = "text-danger" });
 
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.UserName, new { @placeholder = "Usuário", @class = "form-control" })
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @type = "text", @placeholder = "Usuário", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Name, new { @class = "form-control", @placeholder = "Nome" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @type = "text", @placeholder = "Nome completo", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @placeholder = "Email", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.Password, new { @class = "form-control", @placeholder = "Senha" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @placeholder = "Senha", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        @Html.EditorFor(x => x.RetypePassword, new { @class = "form-control", @placeholder = "Digite novamente sua senha" })
+                        @Html.EditorFor(model => model.RetypePassword, new { htmlAttributes = new { @type = "password", @placeholder = "Digite novamente sua senha", @class = "form-control" } })
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -75,10 +75,11 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                @Html.EditorFor(x => x.AgreeTerms, new { @class = "form-control", @name = "terms", @value = "agree" })
+                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @checked = "checked", @class = "form-control" })
                                 <label for="agreeTerms">
                                     Concordo com os <a href="#">termos</a>
                                 </label>
+                                @Html.DisplayTextFor(m => m.AgreeTerms)
                             </div>
                         </div>
                         <!-- /.col -->
@@ -99,15 +100,15 @@
                     </a>
                 </div>
 
-                <a href="login.html" class="text-center">Já tenho cadastro</a>
+                <a href="@Url.Action("Login", "Account")" class="text-center">Já tenho cadastro</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
     </div>
     <!-- /.register-box -->
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="~/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dist/js/adminlte.min.js"></script>
 </body>
 </html>

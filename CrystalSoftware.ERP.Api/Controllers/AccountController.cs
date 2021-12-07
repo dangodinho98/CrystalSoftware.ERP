@@ -11,14 +11,17 @@ namespace CrystalSoftware.ERP.Api.Controllers
         private readonly ICreateAccountUseCase _createAccountUseCase;
         private readonly ILoginUseCase _loginUseCase;
         private readonly ISignOutUseCase _signOutUseCase;
+        private readonly IForgotPasswordUseCase _forgotPasswordUseCase;
 
         public AccountController(ICreateAccountUseCase createAccountUseCase,
             ILoginUseCase loginUseCase,
-            ISignOutUseCase signOutUseCase)
+            ISignOutUseCase signOutUseCase,
+            IForgotPasswordUseCase forgotPasswordUseCase)
         {
             _createAccountUseCase = createAccountUseCase;
             _loginUseCase = loginUseCase;
             _signOutUseCase = signOutUseCase;
+            _forgotPasswordUseCase = forgotPasswordUseCase;
         }
 
         public IActionResult Index()
@@ -65,13 +68,16 @@ namespace CrystalSoftware.ERP.Api.Controllers
             }
 
             var result = await _loginUseCase.Execute(request);
-            if (result.Status == UseCaseResponseKind.NotFound)
+            switch (result.Status)
             {
-                ModelState.AddModelError("", result.ErrorMessage);
-                return View(request);
+                case UseCaseResponseKind.BadRequest:
+                    ModelState.AddModelError("", result.ErrorMessage);
+                    return View(request);
+                case UseCaseResponseKind.Success:
+                    return RedirectToAction("Index", "Home");
+                default:
+                    return View(request);
             }
-
-            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -79,6 +85,24 @@ namespace CrystalSoftware.ERP.Api.Controllers
         {
             await _signOutUseCase.Execute(null);
             return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<IActionResult> ForgotPassword() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+
+
+            return View();
         }
     }
 }

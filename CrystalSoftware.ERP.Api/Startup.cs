@@ -48,6 +48,8 @@ namespace CrystalSoftware.ERP.Api
                     options.Password.RequireUppercase = false;
 
                     options.Lockout.AllowedForNewUsers = false;
+                    options.Lockout.MaxFailedAccessAttempts = 3;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 
                     options.SignIn.RequireConfirmedEmail = false;
                     options.SignIn.RequireConfirmedPhoneNumber = false;

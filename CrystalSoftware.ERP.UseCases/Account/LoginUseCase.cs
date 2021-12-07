@@ -17,10 +17,11 @@ namespace CrystalSoftware.ERP.UseCases.Account
         private readonly CreateAccountValidator _validator;
         private const string DefaultErrorMessage = "An error has occured when trying to do user login.";
         private const string InvalidUserOrPassword = "Usuário ou senha inválidos.";
+        private const string UnconfirmedMail = "Email não confirmado.";
 
-        public LoginUseCase(IIdentityRepository _identityRepository, CreateAccountValidator validator)
+        public LoginUseCase(IIdentityRepository identityRepository, CreateAccountValidator validator)
         {
-            this._identityRepository = _identityRepository;
+            _identityRepository = identityRepository;
             _validator = validator;
         }
 
@@ -33,11 +34,17 @@ namespace CrystalSoftware.ERP.UseCases.Account
 
                 var applicationUser = await _identityRepository.FindApplicationUserByEmail(request.Email);
                 if (applicationUser == null)
-                    return useCaseResponse.SetNotFound(InvalidUserOrPassword);
+                    return useCaseResponse.SetBadRequest(InvalidUserOrPassword);
 
                 var signInResult = await _identityRepository.PasswordSignIn(applicationUser, request);
                 if (!signInResult.Succeeded)
-                    return useCaseResponse.SetNotFound(InvalidUserOrPassword);
+                    return useCaseResponse.SetBadRequest(InvalidUserOrPassword);
+
+                if (!applicationUser.EmailConfirmed)
+                {
+                    await _identityRepository.SignOut();
+                    return useCaseResponse.SetBadRequest(UnconfirmedMail);
+                }
 
                 return useCaseResponse.SetSuccess();
             }

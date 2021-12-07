@@ -46,7 +46,7 @@ namespace CrystalSoftware.ERP.Repositories.Account
             using var scope = _serviceScopeFactory.CreateScope();
             var signInManager = (SignInManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(SignInManager<ApplicationUser>));
 
-            var result = await signInManager.PasswordSignInAsync(applicationUser.UserName, request.Password, request.KeepLogged, false);
+            var result = await signInManager.PasswordSignInAsync(applicationUser.UserName, request.Password, request.KeepLogged, true);
 
             if (result.Succeeded)
                  await signInManager.SignInAsync(applicationUser, request.KeepLogged);
@@ -60,6 +60,15 @@ namespace CrystalSoftware.ERP.Repositories.Account
             var signInManager = (SignInManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(SignInManager<ApplicationUser>));
 
             await signInManager.SignOutAsync();
+        }
+
+        public async Task<string> GeneratePasswordResetToken(ApplicationUser applicationUser)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(applicationUser);
+            return token;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace CrystalSoftware.ERP.Border.Repositories
         Task<string> GenerateEmailConfirmationToken(ApplicationUser appUser);
         Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, LoginRequest request);
         Task SignOut();
+        Task<string> GeneratePasswordResetToken(ApplicationUser applicationUser);
     }
 }

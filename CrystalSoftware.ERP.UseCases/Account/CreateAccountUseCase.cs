@@ -5,7 +5,6 @@ using CrystalSoftware.ERP.Border.Interfaces.UseCase;
 using CrystalSoftware.ERP.Border.Repositories;
 using CrystalSoftware.ERP.Border.Shared;
 using CrystalSoftware.ERP.Border.Validators;
-using CrystalSoftware.ERP.Repositories.Services;
 using CrystalSoftware.ERP.Shared.Extensions;
 using FluentValidation;
 using System;
@@ -20,10 +19,10 @@ namespace CrystalSoftware.ERP.UseCases.Account
         private readonly CreateAccountValidator _validator;
         private const string DefaultErrorMessage = "An error has occured when trying to create user account.";
 
-        public CreateAccountUseCase(IIdentityRepository _identityRepository, 
+        public CreateAccountUseCase(IIdentityRepository identityRepository, 
             CreateAccountValidator validator)
         {
-            this._identityRepository = _identityRepository;
+            _identityRepository = identityRepository;
             _validator = validator;
         }
 

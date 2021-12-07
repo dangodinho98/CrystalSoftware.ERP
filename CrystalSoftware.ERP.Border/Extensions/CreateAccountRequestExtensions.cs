@@ -10,6 +10,7 @@ namespace CrystalSoftware.ERP.Border.Extensions
             {
                 Email = request.Email,
                 UserName = request.UserName,
+                LockoutEnabled = true
             };
             return applicationUser;
         }

@@ -3,7 +3,6 @@ using FluentValidation;
 
 namespace CrystalSoftware.ERP.Border.Validators
 {
-
     public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
 	{
 		public CreatePersonValidator()

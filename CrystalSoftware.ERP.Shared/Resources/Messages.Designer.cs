@@ -81,5 +81,16 @@ namespace CrystalSoftware.ERP.Shared.Resources{
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DatabaseConfiguration not found.
+        /// </summary>
+        public static string InvalidUserOrPassword
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidUserOrPassword", resourceCulture);
+            }
+        }
     }
 }

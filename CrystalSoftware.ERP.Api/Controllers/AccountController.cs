@@ -10,12 +10,15 @@ namespace CrystalSoftware.ERP.Api.Controllers
     {
         private readonly ICreateAccountUseCase _createAccountUseCase;
         private readonly ILoginUseCase _loginUseCase;
+        private readonly ISignOutUseCase _signOutUseCase;
 
         public AccountController(ICreateAccountUseCase createAccountUseCase,
-            ILoginUseCase loginUseCase)
+            ILoginUseCase loginUseCase,
+            ISignOutUseCase signOutUseCase)
         {
             _createAccountUseCase = createAccountUseCase;
             _loginUseCase = loginUseCase;
+            _signOutUseCase = signOutUseCase;
         }
 
         public IActionResult Index()
@@ -67,8 +70,15 @@ namespace CrystalSoftware.ERP.Api.Controllers
                 ModelState.AddModelError("", result.ErrorMessage);
                 return View(request);
             }
-            
+
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signOutUseCase.Execute(null);
+            return RedirectToAction("Login", "Account");
         }
     }
 }

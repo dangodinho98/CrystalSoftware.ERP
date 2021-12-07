@@ -53,5 +53,13 @@ namespace CrystalSoftware.ERP.Repositories.Account
             
             return result;
         }
+
+        public async Task SignOut()
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var signInManager = (SignInManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(SignInManager<ApplicationUser>));
+
+            await signInManager.SignOutAsync();
+        }
     }
 }

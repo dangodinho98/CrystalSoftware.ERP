@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrystalSoftware.ERP.Border\CrystalSoftware.ERP.Border.csproj" />
+    <ProjectReference Include="..\CrystalSoftware.ERP.Repositories\CrystalSoftware.ERP.Repositories.csproj" />
+    <ProjectReference Include="..\CrystalSoftware.ERP.Shared\CrystalSoftware.ERP.Shared.csproj" />
   </ItemGroup>
 
 </Project>

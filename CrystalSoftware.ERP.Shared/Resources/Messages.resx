@@ -120,4 +120,7 @@
   <data name="DatabaseConfigurationNotFound" xml:space="preserve">
     <value>DatabaseConfiguration not found.</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
 </root>

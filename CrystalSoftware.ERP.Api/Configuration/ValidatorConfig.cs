@@ -10,6 +10,7 @@ namespace CrystalSoftware.ERP.Api.Configuration
             services.AddSingleton<StringValidator>();
             services.AddSingleton<GuidValidator>();
             services.AddSingleton<CreatePersonValidator>();
+            services.AddSingleton<CreateAccountValidator>();
         }
     }
 }

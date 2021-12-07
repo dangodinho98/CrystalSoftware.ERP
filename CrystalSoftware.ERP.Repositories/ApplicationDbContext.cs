@@ -1,16 +1,19 @@
-﻿using System.Data.Entity;
-using CrystalSoftware.ERP.Border.Models;
-using CrystalSoftware.ERP.Shared.Configuration;
+﻿using CrystalSoftware.ERP.Border;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CrystalSoftware.ERP.Repositories
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(ApplicationConfig application)
-            : base(application.Database.ConnectionString)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
         }
 
-        public DbSet<People> People { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

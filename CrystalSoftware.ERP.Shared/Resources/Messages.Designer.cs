@@ -61,13 +61,24 @@ namespace CrystalSoftware.ERP.Shared.Resources{
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to 13.090 | DatabaseConfiguration not found..
+        ///   Looks up a localized string similar to DatabaseConfiguration not found.
         /// </summary>
         public static string DatabaseConfigurationNotFound
         {
             get
             {
                 return ResourceManager.GetString("DatabaseConfigurationNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DatabaseConfiguration not found.
+        /// </summary>
+        public static string UserNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

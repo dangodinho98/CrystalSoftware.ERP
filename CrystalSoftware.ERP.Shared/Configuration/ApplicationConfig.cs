@@ -10,11 +10,14 @@ namespace CrystalSoftware.ERP.Shared.Configuration
     {
         public DataBaseConfiguration Database { get; set; }
         public ApiConfiguration PersonApi { get; set; }
+        public MailSettings EmailSettings { get; set; }
+
 
         public ApplicationConfig()
         {
             Database = new DataBaseConfiguration();
             PersonApi = new ApiConfiguration();
+            EmailSettings = new MailSettings();
         }
 
         public void Validate()
@@ -37,6 +40,7 @@ namespace CrystalSoftware.ERP.Shared.Configuration
             RuleFor(config => config.Database).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
             RuleFor(config => config.Database.ConnectionString).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
             RuleFor(config => config.Database.DatabaseName).NotEmpty().WithMessage(Messages.DatabaseConfigurationNotFound);
+
             RuleFor(config => config.PersonApi).NotEmpty().WithMessage("Person api was not found");
             RuleFor(config => config.PersonApi.Url).NotEmpty().WithMessage("Person api was not found");
         }
@@ -51,5 +55,14 @@ namespace CrystalSoftware.ERP.Shared.Configuration
     public class ApiConfiguration
     {
         public string Url { get; set; }
+    }
+
+    public class MailSettings
+    {
+        public string EmailFrom { get; set; }
+        public string EmailFromPassword { get; set; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public bool EnableSsl { get; set; }
     }
 }

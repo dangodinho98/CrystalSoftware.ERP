@@ -117,25 +117,25 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Profile()
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(request);
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Profile(ProfileEditRequest request)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(request);
+        //    }
 
-            var result = await _loginUseCase.Execute(request);
-            switch (result.Status)
-            {
-                case UseCaseResponseKind.BadRequest:
-                    ModelState.AddModelError("", result.ErrorMessage);
-                    return View(request);
-                case UseCaseResponseKind.Success:
-                    return RedirectToAction("Index", "Home");
-                default:
-                    return View(request);
-            }
-        }
+        //    var result = await _loginUseCase.Execute(request);
+        //    switch (result.Status)
+        //    {
+        //        case UseCaseResponseKind.BadRequest:
+        //            ModelState.AddModelError("", result.ErrorMessage);
+        //            return View(request);
+        //        case UseCaseResponseKind.Success:
+        //            return RedirectToAction("Index", "Home");
+        //        default:
+        //            return View(request);
+        //    }
+        //}
     }
 }

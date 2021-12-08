@@ -40,11 +40,12 @@ namespace CrystalSoftware.ERP.UseCases.Account
                 if (!signInResult.Succeeded)
                     return useCaseResponse.SetBadRequest(Messages.InvalidUserOrPassword);
 
-                if (!applicationUser.EmailConfirmed)
-                {
-                    await _identityRepository.SignOut();
-                    return useCaseResponse.SetBadRequest(UnconfirmedMail);
-                }
+                //TODO: Aguardando funcionalidade de envio de e-mail
+                //if (!applicationUser.EmailConfirmed)
+                //{
+                //    await _identityRepository.SignOut();
+                //    return useCaseResponse.SetBadRequest(UnconfirmedMail);
+                //}
 
                 return useCaseResponse.SetSuccess();
             }

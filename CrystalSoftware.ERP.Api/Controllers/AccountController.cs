@@ -29,7 +29,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return View();
         }
 
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
@@ -102,6 +102,11 @@ namespace CrystalSoftware.ERP.Api.Controllers
 
 
 
+            return View();
+        }
+
+        public IActionResult Profile()
+        {
             return View();
         }
     }

@@ -111,6 +111,7 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                     </div>
                 </li>
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -138,6 +139,53 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
+
+                <li class="nav-item dropdown user-menu">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/dist/img/PersonSilhouette.png" class="user-image img-circle elevation-2" alt="User Image">
+                        <span class="d-none d-md-inline">@User.Identity.Name</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <!-- User image -->
+                        <li class="user-header bg-primary">
+                            <img src="~/dist/img/PersonSilhouette.png" class="img-circle elevation-2" alt="User Image">
+                            <p>
+                                @User.Identity.Name - Web Developer
+                                <small>Member since Nov. 2012</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <!--<li class="user-body">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <a href="#">Followers</a>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <a href="#">Sales</a>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <a href="#">Friends</a>
+                                </div>
+                            </div>-->
+                        <!-- /.row -->
+                        <!--</li>-->
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <a href="@Url.Action("Profile", "Account")" class="btn btn-default btn-flat">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="d-inline">Profile</span>
+                            </a>
+
+                            @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "d-none" }))
+                            { }
+                            <a href="javascript: document.getElementById('logoutForm').submit();" class="btn btn-default btn-flat float-right">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="d-inline">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -148,27 +196,13 @@
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="javascript: document.getElementById('logoutForm').submit();" role="button" title="Logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span class="d-inline">Logout</span>
-                            </a>
-                        </li>
-                    }
-
-                }
             </ul>
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="index3.html" class="brand-link mb-3">
                 <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">CrystalSoftware</span>
             </a>
@@ -176,14 +210,6 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="~/dist/img/PersonSilhouette.png" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="@Url.Action("Privacy", "Home")" class="d-block">@User.Identity.Name</a>
-                    </div>
-                </div>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">

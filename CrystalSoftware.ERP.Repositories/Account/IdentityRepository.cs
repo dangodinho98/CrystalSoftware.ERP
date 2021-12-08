@@ -70,5 +70,14 @@ namespace CrystalSoftware.ERP.Repositories.Account
             var token = await userManager.GeneratePasswordResetTokenAsync(applicationUser);
             return token;
         }
+
+        public async Task<ApplicationUser> FindApplicationUserByName(string name)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
+
+            var applicationUser = await userManager.FindByNameAsync(name);
+            return applicationUser;
+        }
     }
 }

@@ -32,6 +32,11 @@ namespace CrystalSoftware.ERP.Border.Shared
             return SetStatus(UseCaseResponseKind.NotFound, errorMessage);
         }
 
+        public new UseCaseResponse<T> SetBadRequest(string errorMessage)
+        {
+            return SetStatus(UseCaseResponseKind.BadRequest, errorMessage, null);
+        }
+
         public new UseCaseResponse<T> SetBadRequest(string errorMessage, ErrorMessage[] errMsg)
         {
             return SetStatus(UseCaseResponseKind.BadRequest, errorMessage, errMsg);

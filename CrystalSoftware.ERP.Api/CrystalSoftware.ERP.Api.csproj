@@ -9,6 +9,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Owin" Version="4.2.0" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.0" />
@@ -24,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Filters\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

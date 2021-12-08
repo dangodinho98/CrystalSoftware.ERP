@@ -12,16 +12,19 @@ namespace CrystalSoftware.ERP.Api.Controllers
         private readonly ILoginUseCase _loginUseCase;
         private readonly ISignOutUseCase _signOutUseCase;
         private readonly IForgotPasswordUseCase _forgotPasswordUseCase;
+        private readonly IProfileUseCase _profileUseCase;
 
         public AccountController(ICreateAccountUseCase createAccountUseCase,
             ILoginUseCase loginUseCase,
             ISignOutUseCase signOutUseCase,
-            IForgotPasswordUseCase forgotPasswordUseCase)
+            IForgotPasswordUseCase forgotPasswordUseCase,
+            IProfileUseCase profileUseCase)
         {
             _createAccountUseCase = createAccountUseCase;
             _loginUseCase = loginUseCase;
             _signOutUseCase = signOutUseCase;
             _forgotPasswordUseCase = forgotPasswordUseCase;
+            _profileUseCase = profileUseCase;
         }
 
         public IActionResult Index()
@@ -87,7 +90,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public async Task<IActionResult> ForgotPassword() 
+        public async Task<IActionResult> ForgotPassword()
         {
             return View();
         }
@@ -100,14 +103,39 @@ namespace CrystalSoftware.ERP.Api.Controllers
                 return View(request);
             }
 
-
-
             return View();
         }
 
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var model = await _profileUseCase.Execute(User.Identity.Name);
+            if (model?.Status == UseCaseResponseKind.Success)
+            {
+                return View(model.Result);
+            }
+        
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var result = await _loginUseCase.Execute(request);
+            switch (result.Status)
+            {
+                case UseCaseResponseKind.BadRequest:
+                    ModelState.AddModelError("", result.ErrorMessage);
+                    return View(request);
+                case UseCaseResponseKind.Success:
+                    return RedirectToAction("Index", "Home");
+                default:
+                    return View(request);
+            }
         }
     }
 }

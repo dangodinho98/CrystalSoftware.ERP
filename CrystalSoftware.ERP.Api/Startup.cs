@@ -1,11 +1,9 @@
 using CrystalSoftware.ERP.Api.Configuration;
 using CrystalSoftware.ERP.Api.Extensions;
+using CrystalSoftware.ERP.Api.Data;
 using CrystalSoftware.ERP.Border;
-using CrystalSoftware.ERP.Repositories;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +27,6 @@ namespace CrystalSoftware.ERP.Api
         {
             var applicationConfig = Configuration.LoadConfiguration();
 
-            services.AddDbContext<CustomDbContext>(options => options.UseSqlServer(applicationConfig.Database.ConnectionString));
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(applicationConfig.Database.ConnectionString, builder =>
@@ -77,7 +74,9 @@ namespace CrystalSoftware.ERP.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
-            serviceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
+            var applicationDbContext = serviceProvider.GetService<ApplicationDbContext>();
+            applicationDbContext.Database.EnsureCreated();
+            applicationDbContext.Database.Migrate();
             
             if (env.IsDevelopment())
             {

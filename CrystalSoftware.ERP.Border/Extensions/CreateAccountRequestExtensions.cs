@@ -1,4 +1,5 @@
 ﻿using CrystalSoftware.ERP.Border.Dto;
+using System;
 
 namespace CrystalSoftware.ERP.Border.Extensions
 {
@@ -10,7 +11,9 @@ namespace CrystalSoftware.ERP.Border.Extensions
             {
                 Email = request.Email,
                 UserName = request.UserName,
-                LockoutEnabled = true
+                FullName = request.Name,
+                LockoutEnabled = true,
+                CreationDate = DateTime.Now
             };
             return applicationUser;
         }

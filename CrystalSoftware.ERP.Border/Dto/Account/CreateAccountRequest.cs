@@ -7,6 +7,7 @@ namespace CrystalSoftware.ERP.Border.Dto
         [Required]
         public string UserName { get; set; }
         [Required]
+        [MaxLength(150)]
         public string Name { get; set; }
         [Required]
         [EmailAddress]

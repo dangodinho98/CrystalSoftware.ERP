@@ -361,5 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CrystalSoftware.ERP.Api/wwwroot/dist/img/UserPhotos
+FodyWeavers.xsd
 
 **/appsettings.Development.json

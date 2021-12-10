@@ -2,6 +2,7 @@
 using CrystalSoftware.ERP.Border.Dto;
 using CrystalSoftware.ERP.Border.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
@@ -49,8 +50,8 @@ namespace CrystalSoftware.ERP.Repositories.Account
             var result = await signInManager.PasswordSignInAsync(applicationUser.UserName, request.Password, request.KeepLogged, true);
 
             if (result.Succeeded)
-                 await signInManager.SignInAsync(applicationUser, request.KeepLogged);
-            
+                await signInManager.SignInAsync(applicationUser, request.KeepLogged);
+
             return result;
         }
 
@@ -77,6 +78,17 @@ namespace CrystalSoftware.ERP.Repositories.Account
             var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>));
 
             var applicationUser = await userManager.FindByNameAsync(name);
+            return applicationUser;
+        }
+
+        public async Task<ApplicationUser> UpdateApplicationUser(ApplicationUser applicationUser)
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var userDbContext = (ApplicationDbContext)scope.ServiceProvider.GetService(typeof(ApplicationDbContext));
+
+            userDbContext.Entry(applicationUser).State = EntityState.Modified;
+            await userDbContext.SaveChangesAsync();
+
             return applicationUser;
         }
     }

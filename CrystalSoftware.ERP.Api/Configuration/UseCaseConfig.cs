@@ -14,7 +14,8 @@ namespace CrystalSoftware.ERP.Api.Configuration
             services.AddSingleton<ILoginUseCase, LoginUseCase>();
             services.AddSingleton<ISignOutUseCase, SignOutUseCase>();
             services.AddSingleton<IForgotPasswordUseCase, ForgotPasswordUseCase>();
-            services.AddSingleton<IProfileUseCase, ProfileUseCase>();
+            services.AddSingleton<IGetAccountUseCase, GetAccountUseCase>();
+            services.AddSingleton<IEditProfileUseCase, EditProfileUseCase>();
         }
     }
 }

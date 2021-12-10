@@ -12,6 +12,7 @@ namespace CrystalSoftware.ERP.Shared.Extensions
                 Avatar = applicationUser.Avatar,
                 UserName = applicationUser.UserName,
                 FullName = applicationUser.FullName,
+                Email = applicationUser.Email,
             };
         }
     }

@@ -98,13 +98,13 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public async Task<IActionResult> ForgotPassword()
+        public IActionResult ForgotPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
+        public IActionResult ForgotPassword(ForgotPasswordRequest request)
         {
             if (!ModelState.IsValid)
             {

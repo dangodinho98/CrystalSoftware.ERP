@@ -1,4 +1,5 @@
 ﻿using CrystalSoftware.ERP.Border.Repositories;
+using CrystalSoftware.ERP.Repositories;
 using CrystalSoftware.ERP.Repositories.Account;
 using CrystalSoftware.ERP.Repositories.Person;
 using CrystalSoftware.ERP.Repositories.Services;
@@ -21,6 +22,7 @@ namespace CrystalSoftware.ERP.Api.Configuration
 
             services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<IIdentityRepository, IdentityRepository>();
+            services.AddSingleton<IFileManagerRepository, FileManagerRepository>();
 
             services.AddSingleton<IIdentityMessageService>(new MailService(applicationConfig.EmailSettings));
         }

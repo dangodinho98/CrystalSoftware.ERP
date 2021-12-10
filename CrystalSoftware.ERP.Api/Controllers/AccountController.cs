@@ -1,7 +1,12 @@
 ﻿using CrystalSoftware.ERP.Border.Dto;
+using CrystalSoftware.ERP.Border.Dto.Account;
 using CrystalSoftware.ERP.Border.Interfaces.UseCase;
 using CrystalSoftware.ERP.Border.Shared;
+using CrystalSoftware.ERP.Shared.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace CrystalSoftware.ERP.Api.Controllers
@@ -12,19 +17,22 @@ namespace CrystalSoftware.ERP.Api.Controllers
         private readonly ILoginUseCase _loginUseCase;
         private readonly ISignOutUseCase _signOutUseCase;
         private readonly IForgotPasswordUseCase _forgotPasswordUseCase;
-        private readonly IProfileUseCase _profileUseCase;
+        private readonly IGetAccountUseCase _getAccountUseCase;
+        private readonly IEditProfileUseCase _editProfileUseCase;
 
         public AccountController(ICreateAccountUseCase createAccountUseCase,
             ILoginUseCase loginUseCase,
             ISignOutUseCase signOutUseCase,
             IForgotPasswordUseCase forgotPasswordUseCase,
-            IProfileUseCase profileUseCase)
+            IGetAccountUseCase getAccountUseCase,
+            IEditProfileUseCase editProfileUseCase)
         {
             _createAccountUseCase = createAccountUseCase;
             _loginUseCase = loginUseCase;
             _signOutUseCase = signOutUseCase;
             _forgotPasswordUseCase = forgotPasswordUseCase;
-            _profileUseCase = profileUseCase;
+            _getAccountUseCase = getAccountUseCase;
+            _editProfileUseCase = editProfileUseCase;
         }
 
         public IActionResult Index()
@@ -108,34 +116,36 @@ namespace CrystalSoftware.ERP.Api.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            var model = await _profileUseCase.Execute(User.Identity.Name);
+            var model = await _getAccountUseCase.Execute(User.Identity.Name);
             if (model?.Status == UseCaseResponseKind.Success)
             {
-                return View(model.Result);
+                var request = model.Result.ToEditProfileRequest();
+                return View(request);
             }
-        
+
             return RedirectToAction("Index", "Home");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Profile(ProfileEditRequest request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(request);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Profile(EditProfileRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
 
-        //    var result = await _loginUseCase.Execute(request);
-        //    switch (result.Status)
-        //    {
-        //        case UseCaseResponseKind.BadRequest:
-        //            ModelState.AddModelError("", result.ErrorMessage);
-        //            return View(request);
-        //        case UseCaseResponseKind.Success:
-        //            return RedirectToAction("Index", "Home");
-        //        default:
-        //            return View(request);
-        //    }
-        //}
+            if (HttpContext.Request.Form.Files?.Count == 1)
+            {
+                request.File = HttpContext.Request.Form.Files[0];
+
+                var result = await _editProfileUseCase.Execute(request);
+                if (result.Status == UseCaseResponseKind.Success)
+                    return View(result.Result.ToEditProfileRequest());
+
+                ModelState.AddModelError("", result.ErrorMessage);
+            }
+
+            return View(request);
+        }
     }
 }

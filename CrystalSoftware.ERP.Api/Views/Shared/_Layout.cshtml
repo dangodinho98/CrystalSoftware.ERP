@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@*@inject Microsoft.AspNet.Identity.UserManager<CrystalSoftware.ERP.Border.ApplicationUser> userManager;*@
+@inject CrystalSoftware.ERP.Border.Repositories.IIdentityRepository _identityRepository;
+@{
+    var appUser = _identityRepository.FindApplicationUserByName(User.Identity.Name).Result;
+
+    var avatarSrc = "/dist/img/PersonSilhouette.png";
+    if (!string.IsNullOrEmpty(appUser.Avatar))
+        avatarSrc = $"/dist/img/UserPhotos/{appUser.Avatar}";
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -142,16 +153,16 @@
 
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="~/dist/img/PersonSilhouette.png" class="user-image img-circle elevation-2" alt="User Image">
+                        <img src="@avatarSrc" class="user-image img-circle elevation-2" alt="User Image">
                         <span class="d-none d-md-inline">@User.Identity.Name</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
-                            <img src="~/dist/img/PersonSilhouette.png" class="img-circle elevation-2" alt="User Image">
+                            <img src="@avatarSrc" class="img-circle elevation-2" alt="User Image">
                             <p>
-                                @User.Identity.Name - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                @appUser.UserName - @appUser.FullName
+                                <small>Membro desde @appUser.CreationDate.ToShortDateString()</small>
                             </p>
                         </li>
                         <!-- Menu Body -->

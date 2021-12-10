@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CrystalSoftware.ERP.UseCases.Account
 {
-    public class ProfileUseCase : IProfileUseCase
+    public class GetAccountUseCase : IGetAccountUseCase
     {
         private readonly IIdentityRepository _identityRepository;
 
-        public ProfileUseCase(IIdentityRepository identityRepository)
+        public GetAccountUseCase(IIdentityRepository identityRepository)
         {
             _identityRepository = identityRepository;
         }

@@ -2,7 +2,7 @@
 
 namespace CrystalSoftware.ERP.Border.Interfaces.UseCase
 {
-    public interface IProfileUseCase : IUseCase<string, UseCaseResponse<ApplicationUser>>
+    public interface IGetAccountUseCase : IUseCase<string, UseCaseResponse<ApplicationUser>>
     {
     }
 }

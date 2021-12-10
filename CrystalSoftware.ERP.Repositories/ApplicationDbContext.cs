@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrystalSoftware.ERP.Api.Data
+namespace CrystalSoftware.ERP.Repositories
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

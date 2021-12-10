@@ -1,4 +1,4 @@
-﻿@model CrystalSoftware.ERP.Border.ApplicationUser
+﻿@model CrystalSoftware.ERP.Border.Dto.Account.EditProfileRequest
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -25,15 +25,26 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
+
                             @{
                                 var avatarSrc = "/dist/img/PersonSilhouette.png";
                                 if (!string.IsNullOrEmpty(Model.Avatar))
-                                    avatarSrc = $"/dist/img/UserPhotos/{@Model.Avatar}";
+                                    avatarSrc = $"/dist/img/UserPhotos/{Model.Avatar}";
 
-                                <img class="profile-user-img img-fluid img-circle" src="@avatarSrc" alt="User profile picture">
+                                <form id="formUploadAvatar" method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="Profile">
+                                    @Html.HiddenFor(x => x.UserName)
+
+                                    <div class="image-upload">
+                                        <label for="FileUpload">
+                                            <img class="profile-user-img img-fluid img-circle" src="@avatarSrc" alt="User profile picture">
+                                        </label>
+
+                                        <input type="file" name="FileUpload" id="FileUpload" class="d-none" onchange="javascript: document.getElementById('formUploadAvatar').submit()" />
+                                    </div>
+                                    <input type="submit" value="Upload" class="d-none" />
+                                </form>
                             }
                         </div>
-
                         <h3 class="profile-username text-center">@Model.FullName</h3>
 
                         <p class="text-muted text-center">Software Engineer</p>

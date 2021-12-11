@@ -137,13 +137,13 @@ namespace CrystalSoftware.ERP.Api.Controllers
             if (HttpContext.Request.Form.Files?.Count == 1)
             {
                 request.File = HttpContext.Request.Form.Files[0];
-
-                var result = await _editProfileUseCase.Execute(request);
-                if (result.Status == UseCaseResponseKind.Success)
-                    return View(result.Result.ToEditProfileRequest());
-
-                ModelState.AddModelError("", result.ErrorMessage);
             }
+
+            var result = await _editProfileUseCase.Execute(request);
+            if (result.Status == UseCaseResponseKind.Success)
+                return View(result.Result.ToEditProfileRequest());
+
+            ModelState.AddModelError("", result.ErrorMessage);
 
             return View(request);
         }

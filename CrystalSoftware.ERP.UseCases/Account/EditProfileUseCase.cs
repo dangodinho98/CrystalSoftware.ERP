@@ -5,7 +5,6 @@ using CrystalSoftware.ERP.Border.Repositories;
 using CrystalSoftware.ERP.Border.Shared;
 using CrystalSoftware.ERP.Shared.Resources;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
 
@@ -15,7 +14,6 @@ namespace CrystalSoftware.ERP.UseCases.Account
     {
         private readonly IIdentityRepository _identityRepository;
         private readonly IFileManagerRepository _fileManagerRepository;
-        private string _fileName;
 
         public EditProfileUseCase(IIdentityRepository identityRepository,
             IFileManagerRepository fileManagerRepository)
@@ -29,9 +27,6 @@ namespace CrystalSoftware.ERP.UseCases.Account
             var useCaseResponse = new UseCaseResponse<ApplicationUser>();
             try
             {
-                if (request.File != null)
-                    _fileName = _fileManagerRepository.UploadAvatarImage(request.File);
-
                 var applicationUser = await _identityRepository.FindApplicationUserByName(request.UserName);
                 if (applicationUser == null)
                     return useCaseResponse.SetBadRequest(Messages.UserNotFound);
@@ -54,12 +49,14 @@ namespace CrystalSoftware.ERP.UseCases.Account
         private void UpdateModalFields(ref ApplicationUser applicationUser, EditProfileRequest request)
         {
             //TODO: Implementar automapper
-
-            if (!string.IsNullOrEmpty(_fileName))
-                applicationUser.Avatar = _fileName;
-
+            
+            if (request.File != null)
+                applicationUser.Avatar =  _fileManagerRepository.UploadAvatarImage(request.File);
+            
             applicationUser.FullName = request.FullName;
             applicationUser.PhoneNumber = request.PhoneNumber;
+            applicationUser.Email = request.Email;
+            applicationUser.NormalizedEmail = request.Email.ToUpper();
         }
     }
 }

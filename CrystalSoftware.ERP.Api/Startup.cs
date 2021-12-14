@@ -31,7 +31,9 @@ namespace CrystalSoftware.ERP.Api
             {
                 options.UseSqlServer(applicationConfig.Database.ConnectionString, builder =>
                 {
-                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    builder
+                    .MigrationsAssembly("CrystalSoftware.ERP.Api")
+                    .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                 });
             });
 

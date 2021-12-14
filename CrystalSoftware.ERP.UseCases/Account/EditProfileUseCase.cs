@@ -36,7 +36,7 @@ namespace CrystalSoftware.ERP.UseCases.Account
                 if (applicationUser == null)
                     return useCaseResponse.SetBadRequest(Messages.UserNotFound);
 
-                UpdateModalFields(ref applicationUser);
+                UpdateModalFields(ref applicationUser, request);
 
                 var response = await _identityRepository.UpdateApplicationUser(applicationUser);
                 return useCaseResponse.SetSuccess(response);
@@ -51,10 +51,15 @@ namespace CrystalSoftware.ERP.UseCases.Account
             }
         }
 
-        private void UpdateModalFields(ref ApplicationUser applicationUser)
+        private void UpdateModalFields(ref ApplicationUser applicationUser, EditProfileRequest request)
         {
+            //TODO: Implementar automapper
+
             if (!string.IsNullOrEmpty(_fileName))
                 applicationUser.Avatar = _fileName;
+
+            applicationUser.FullName = request.FullName;
+            applicationUser.PhoneNumber = request.PhoneNumber;
         }
     }
 }

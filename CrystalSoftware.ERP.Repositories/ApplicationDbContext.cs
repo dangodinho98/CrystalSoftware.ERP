@@ -1,4 +1,5 @@
 ﻿using CrystalSoftware.ERP.Border;
+using CrystalSoftware.ERP.Border.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,17 +17,11 @@ namespace CrystalSoftware.ERP.Repositories
             base.OnConfiguring(optionsBuilder);
         }
 
-        //public DbSet<Person> Projects { get; set; }
+        public DbSet<Events> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<Project>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
-            //});
-
+            builder.Entity<Events>().ToTable("Events");
             base.OnModelCreating(builder);
         }
     }

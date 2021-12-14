@@ -1,7 +1,7 @@
 using CrystalSoftware.ERP.Api.Configuration;
 using CrystalSoftware.ERP.Api.Extensions;
-using CrystalSoftware.ERP.Repositories;
 using CrystalSoftware.ERP.Border;
+using CrystalSoftware.ERP.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -76,10 +76,6 @@ namespace CrystalSoftware.ERP.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
-            var applicationDbContext = serviceProvider.GetService<ApplicationDbContext>();
-            applicationDbContext.Database.EnsureCreated();
-            applicationDbContext.Database.Migrate();
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -96,7 +92,7 @@ namespace CrystalSoftware.ERP.Api
 
             app.UseRouting();
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

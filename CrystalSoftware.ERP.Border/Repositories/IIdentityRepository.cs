@@ -1,5 +1,7 @@
 ﻿using CrystalSoftware.ERP.Border.Dto;
+using CrystalSoftware.ERP.Border.Dto.Account;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CrystalSoftware.ERP.Border.Repositories
@@ -14,5 +16,6 @@ namespace CrystalSoftware.ERP.Border.Repositories
         Task<SignInResult> PasswordSignIn(ApplicationUser applicationUser, LoginRequest request);
         Task<string> GeneratePasswordResetToken(ApplicationUser applicationUser);
         Task SignOut();
+        Task<IEnumerable<ApplicationUser>> FindApplicationUsersWithFilters(GetAccountFiltersRequest request);
     }
 }

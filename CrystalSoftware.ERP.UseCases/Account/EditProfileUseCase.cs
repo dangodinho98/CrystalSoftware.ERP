@@ -33,15 +33,7 @@ namespace CrystalSoftware.ERP.UseCases.Account
                 if (applicationUser == null)
                     return useCaseResponse.SetBadRequest(Messages.UserNotFound);
 
-                if (request.File != null)
-                {
-                    _fileName = _fileManagerRepository.UploadAvatarImage(request.File);
-                    UpdateModalFields(ref applicationUser, request);
-                }
-                else
-                {
-                    UpdatePerfilFields(ref applicationUser, request);
-                }
+                UpdateModalFields(ref applicationUser, request);
 
                 var response = await _identityRepository.UpdateApplicationUser(applicationUser);
                 return useCaseResponse.SetSuccess(response);
@@ -73,16 +65,20 @@ namespace CrystalSoftware.ERP.UseCases.Account
 
         private void UpdateModalFields(ref ApplicationUser applicationUser, EditProfileRequest request)
         {
-            if (!string.IsNullOrEmpty(_fileName))
-                applicationUser.Avatar = _fileName;
-        }
 
-        private void UpdatePerfilFields(ref ApplicationUser applicationUser, EditProfileRequest request)
-        {
-            applicationUser.FullName = request.FullName;
-            applicationUser.NormalizedEmail = request.Email.ToUpper();
-            applicationUser.Email = request.Email;
-            applicationUser.UserName = request.UserName;
+            if (request.File != null)
+            {
+                _fileName = _fileManagerRepository.UploadAvatarImage(request.File);
+                applicationUser.Avatar = _fileName;
+            }
+            else
+            {
+                applicationUser.FullName = request.FullName;
+                applicationUser.NormalizedEmail = request.Email.ToUpper();
+                applicationUser.Email = request.Email;
+                applicationUser.UserName = request.UserName;
+            }
+                
         }
 
     }

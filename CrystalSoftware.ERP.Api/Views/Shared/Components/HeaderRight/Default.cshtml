@@ -1,0 +1,20 @@
+﻿@using CrystalSoftware.ERP.Api.Shared.Components.HeaderMessagesMenu
+@using CrystalSoftware.ERP.Api.Shared.Components.HeaderNotificationsMenu
+@using CrystalSoftware.ERP.Api.Shared.Components.HeaderAvatar
+
+<ul class="navbar-nav ml-auto">
+    @(await Component.InvokeAsync<HeaderMessagesMenuViewComponent>())
+    @(await Component.InvokeAsync<HeaderNotificationsMenuViewComponent>())
+    @(await Component.InvokeAsync<HeaderAvatarViewComponent>())
+
+    <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+            <i class="fas fa-th-large"></i>
+        </a>
+    </li>
+</ul>

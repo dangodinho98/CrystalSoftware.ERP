@@ -1,0 +1,9 @@
+﻿@using CrystalSoftware.ERP.Api.Shared.Components.SidebarBrand
+@using CrystalSoftware.ERP.Api.Shared.Components.SidebarMenu
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    @(await Component.InvokeAsync<SidebarBrandViewComponent>())
+    <div class="sidebar">
+        @(await Component.InvokeAsync<SidebarMenuViewComponent>())
+    </div>
+</aside>

@@ -39,12 +39,6 @@ namespace CrystalSoftware.ERP.Api.Controllers
             _editProfileUseCase = editProfileUseCase;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
         public async Task<IActionResult> Index(GetAccountFiltersRequest request)
         {
             var useCaseResponse = await _getAccountUseCase.Execute(request);
@@ -61,6 +55,24 @@ namespace CrystalSoftware.ERP.Api.Controllers
 
             return View(useCaseResponse.Result);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> GetUsersData(GetAccountFiltersRequest request)
+        {
+            var useCaseResponse = await _getAccountUseCase.Execute(request);
+            if (useCaseResponse.Status == UseCaseResponseKind.BadRequest)
+            {
+                if (useCaseResponse.Errors.Any())
+                {
+                    foreach (var item in useCaseResponse.Errors)
+                        ModelState.AddModelError("", item.Message);
+                }
+
+            }
+
+            return Json(useCaseResponse.Result.ToList());
+        }
+
 
         public IActionResult Register()
         {

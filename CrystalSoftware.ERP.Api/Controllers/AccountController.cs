@@ -96,6 +96,9 @@ namespace CrystalSoftware.ERP.Api.Controllers
                 return View(request);
             }
 
+            if (!string.IsNullOrEmpty(request.RedirectToAction))
+                return RedirectToAction(request.RedirectToAction);
+
             return RedirectToAction("Index", "Home");
         }
 

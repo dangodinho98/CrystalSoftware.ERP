@@ -39,7 +39,7 @@
     </style>
 }
 
-@await Html.PartialAsync("Modal/Account/_CreateAccountModal")
+@await Html.PartialAsync("Modal/Account/_CreateAccountModal", new CrystalSoftware.ERP.Border.Dto.CreateAccountRequest { RedirectToAction = "Index" })
 
 <section class="content">
     <div class="container-fluid">

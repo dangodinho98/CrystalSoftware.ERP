@@ -19,5 +19,7 @@ namespace CrystalSoftware.ERP.Border.Dto
         [DataType(DataType.Password)]
         public string RetypePassword { get; set; }
         public bool AgreeTerms { get; set; }
+
+        public string RedirectToAction { get; set; }
     }
 }

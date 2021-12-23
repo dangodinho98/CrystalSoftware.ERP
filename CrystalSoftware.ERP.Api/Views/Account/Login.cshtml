@@ -31,7 +31,7 @@
 
                 @using (Html.BeginForm(FormMethod.Post, new { @id = "loginForm" }))
                 {
-                    Html.ValidationSummary("", new { @class = "text-danger" });
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" });
 
                     <div class="input-group mb-3">
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @placeholder = "Email", @class = "form-control" } })

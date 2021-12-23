@@ -3,6 +3,7 @@ using CrystalSoftware.ERP.Border.Dto.Account;
 using CrystalSoftware.ERP.Border.Interfaces.UseCase;
 using CrystalSoftware.ERP.Border.Shared;
 using CrystalSoftware.ERP.Shared.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -56,6 +57,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return View(useCaseResponse.Result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<JsonResult> GetUsersData(GetAccountFiltersRequest request)
         {
@@ -151,6 +153,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var model = await _getAccountByNameUseCase.Execute(User.Identity.Name);
@@ -163,6 +166,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Profile(EditProfileRequest request)
         {
@@ -173,7 +177,7 @@ namespace CrystalSoftware.ERP.Api.Controllers
 
             if (HttpContext.Request.Form.Files?.Count == 1)
                 request.File = HttpContext.Request.Form.Files[0];
-            
+
             var result = await _editProfileUseCase.Execute(request);
             if (result.Status == UseCaseResponseKind.Success)
                 return View(result.Result.ToEditProfileRequest());

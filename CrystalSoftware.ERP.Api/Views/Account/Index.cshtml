@@ -43,58 +43,60 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="row" style="margin-bottom: 10px"></div>
-
-        @if (Model != null && Model.Any())
-        {
-            <div class="card">
-                <div class="card-body">
-                    <table id="users-table" class="table table-bordered display nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Usuário</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Data de criação</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.UserName</td>
-                                    <td>@item.FullName</td>
-                                    <td>
-                                        @Html.DisplayFor(x => item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => item.PhoneNumber)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => item.CreationDate)
-                                    </td>
-                                    <td>
-                                        <button class="btn" href="@Url.Action("Profile","Account", new { username = item.UserName })"><i class="fas fa-user-edit"></i></button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Usuário</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Data de criação</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="col-md-12 mt-2">
+                @if (Model != null && Model.Any())
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="users-table" class="table table-bordered display nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Data de criação</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.UserName</td>
+                                            <td>@item.FullName</td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.Email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.PhoneNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.CreationDate)
+                                            </td>
+                                            <td>
+                                                <button class="btn" href="@Url.Action("Profile","Account", new { username = item.UserName })"><i class="fas fa-user-edit"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Data de criação</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                }
             </div>
-        }
+        </div>
     </div>
 </section>
 

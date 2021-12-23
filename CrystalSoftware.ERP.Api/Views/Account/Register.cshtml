@@ -11,12 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CrystalSoftware.ERP | Registre-se</title>
 
-    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="~/css/adminlte.min.css">
 </head>
 <body class="hold-transition register-page">
@@ -28,7 +25,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Preencha seus dados</p>
 
-                @using (Html.BeginForm())
+                @using (Html.BeginForm(FormMethod.Post, new { @id = "registerForm" }))
                 {
                     Html.ValidationSummary("", new { @class = "text-danger" });
 
@@ -73,31 +70,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @checked = "checked", @class = "form-control" })
-                                <label for="agreeTerms">
+                        <div class="input-group col-8">
+                            <div class="form-check">
+                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @class = "form-check-input", @checked = "" })
+                                <label for="agreeTerms" class="form-check-label" style="color: black;">
                                     Concordo com os <a href="#">termos</a>
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-block">Registrar</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 }
-                <div class="social-auth-links text-center">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
 
                 <a href="@Url.Action("Login", "Account")" class="text-center">Já tenho cadastro</a>
             </div>
@@ -109,5 +94,72 @@
     <script src="~/plugins/jquery/dist/jquery.min.js"></script>
     <script src="~/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/dist/js/adminlte.min.js"></script>
+    <script src="~/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <script>
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    $('#submit').attr('disabled', 'disabled');
+                    form.submit();
+                }
+            });
+
+            $('#registerForm').validate({
+                rules: {
+                    UserName: {
+                        required: true,
+                    },
+                    Email: {
+                        required: true,
+                        email: true,
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    RetypePassword: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#Password"
+                    },
+                    AgreeTerms: {
+                        required: true
+                    },
+                },
+                messages: {
+                    UserName: {
+                        required: "Campo obrigatório",
+                    },
+                    Email: {
+                        required: "Campo obrigatório",
+                        email: "Preencha com um email válido"
+                    },
+                    Password: {
+                        required: "Campo obrigatório",
+                        minlength: "A senha deve ter no mínimo 6 digitos"
+                    },
+                    RetypePassword: {
+                        required: "Campo obrigatório",
+                        minlength: "A senha deve ter no mínimo 6 digitos",
+                        equalTo: "As senhas devem ser iguais"
+                    },
+                    AgreeTerms: "Por favor aceite nossos termos"
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.input-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

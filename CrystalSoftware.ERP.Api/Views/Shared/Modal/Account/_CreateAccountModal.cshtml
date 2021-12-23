@@ -3,7 +3,7 @@
 <div class="modal fade show" id="createAccountModal" style="padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            @using (Html.BeginForm("Register", "Account"))
+            @using (Html.BeginForm(FormMethod.Post, new { @id = "registerForm" }))
             {
                 <div class="modal-header">
                     <h4 class="modal-title">Criar usuário</h4>
@@ -12,8 +12,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @Html.ValidationSummary(false)               
-                    @Html.HiddenFor(x=> x.RedirectToAction)
+                    @Html.ValidationSummary(false)
+                    @Html.HiddenFor(x => x.RedirectToAction)
 
                     <div class="input-group mb-3">
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @type = "text", @placeholder = "Usuário", @class = "form-control" } })
@@ -56,10 +56,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @checked = "true", @class = "form-control" })
-                                <label for="agreeTerms">
+                        <div class="input-group col-8">
+                            <div class="form-check">
+                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @class = "form-check-input", @checked = "" })
+                                <label for="agreeTerms" class="form-check-label" style="color: black;">
                                     Concordo com os <a href="#">termos</a>
                                 </label>
                             </div>
@@ -68,9 +68,97 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                alert('dsfsd');
+            });
+        });
+
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function (form) {
+                    $('#submit').attr('disabled', 'disabled');
+                    var formData = new FormData(form);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Account/Register",
+                        data: formData,
+                        success: function (response) {
+                            toastr.success('Registro realizado com sucesso!');
+                        },
+                        failure: function (response) {
+                            toastr.success('Ocorreu um erro inesperado!');
+                        },
+                        error: function (response) {
+                            toastr.success('Ocorreu um erro inesperado!');
+                        }
+                    });
+                }
+            });
+
+            $('#registerForm').validate({
+                rules: {
+                    UserName: {
+                        required: true,
+                    },
+                    Email: {
+                        required: true,
+                        email: true,
+                    },
+                    Password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    RetypePassword: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#Password"
+                    },
+                    AgreeTerms: {
+                        required: true
+                    },
+                },
+                messages: {
+                    UserName: {
+                        required: "Campo obrigatório",
+                    },
+                    Email: {
+                        required: "Campo obrigatório",
+                        email: "Preencha com um email válido"
+                    },
+                    Password: {
+                        required: "Campo obrigatório",
+                        minlength: "A senha deve ter no mínimo 6 digitos"
+                    },
+                    RetypePassword: {
+                        required: "Campo obrigatório",
+                        minlength: "A senha deve ter no mínimo 6 digitos",
+                        equalTo: "As senhas devem ser iguais"
+                    },
+                    AgreeTerms: "Por favor aceite nossos termos"
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.input-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+}

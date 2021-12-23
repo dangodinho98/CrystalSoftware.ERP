@@ -24,7 +24,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a href="#" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Faça login para iniciar sua sessão</p>
@@ -58,30 +58,22 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-block">Entrar</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 }
 
-                <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
+                <div class="container mt-1">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="@Url.Action("ForgotPassword", "Account")">Esqueci minha senha</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="@Url.Action("Register", "Account")" class="text-center">Faça seu cadastro</a>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.social-auth-links -->
-
-                <p class="mb-1">
-                    <a href="@Url.Action("ForgotPassword", "Account")">Esqueci minha senha</a>
-                </p>
-                <p class="mb-0">
-                    <a href="@Url.Action("Register", "Account")" class="text-center">Faça seu cadastro</a>
-                </p>
             </div>
             <!-- /.card-body -->
         </div>
@@ -96,8 +88,9 @@
     <script>
         $(function () {
             $.validator.setDefaults({
-                submitHandler: function () {
-                    alert("Form successful submitted!");
+                submitHandler: function (form) {
+                    $('#submit').attr('disabled', 'disabled');
+                    form.submit();
                 }
             });
 

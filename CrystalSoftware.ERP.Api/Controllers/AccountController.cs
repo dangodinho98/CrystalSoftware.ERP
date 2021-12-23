@@ -120,12 +120,12 @@ namespace CrystalSoftware.ERP.Api.Controllers
             {
                 case UseCaseResponseKind.BadRequest:
                     ModelState.AddModelError("", result.ErrorMessage);
-                    return View(request);
+                    break;
                 case UseCaseResponseKind.Success:
                     return RedirectToAction("Index", "Home");
-                default:
-                    return View(request);
             }
+
+            return View(request);
         }
 
         [HttpPost]

@@ -70,31 +70,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @class = "form-control" })
-                                <label for="agreeTerms">
+                        <div class="input-group col-8">
+                            <div class="form-check">
+                                @Html.CheckBoxFor(m => m.AgreeTerms, new { @class = "form-check-input", @checked = "" })
+                                <label for="agreeTerms" class="form-check-label" style="color: black;">
                                     Concordo com os <a href="#">termos</a>
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                            <button id="submit" type="submit" class="btn btn-primary btn-block">Registrar</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 }
-                <div class="social-auth-links text-center">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
 
                 <a href="@Url.Action("Login", "Account")" class="text-center">Já tenho cadastro</a>
             </div>
@@ -113,7 +101,8 @@
         $(function () {
             $.validator.setDefaults({
                 submitHandler: function () {
-                    alert("Form successful submitted!");
+                    $('#submit').attr('disabled', 'disabled');
+                    form.submit();
                 }
             });
 
